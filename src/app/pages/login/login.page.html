@@ -1,0 +1,36 @@
+<ion-header class="bg_transparent">
+  <ion-toolbar>
+      <ion-title>
+          <div class="d-flex; ion-text-center">
+              <h1><ion-text color="success">Bienvenido a inBarber</ion-text></h1>
+          </div>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+        <div class="logo ion-text-center">
+            <img src="assets/img/logoBarber.png" height='125' width='125'>
+        </div>
+        <div class="logo ion-text-center">
+            <img src="assets/img/lgin.png" height='256' width='256'>
+        </div>
+</ion-content>
+
+<ion-footer>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+        <div class="row">
+          <ion-input label="Email" type="text" formControlName="email_usuario" label-placement="floating" fill="outline"  color="success" placeholder="ejemplo@mail.com"  required></ion-input>
+        </div><br>
+        <div class="row">
+            <ion-input label="Contraseña" type="password" formControlName="password_usuario" label-placement="floating" fill="outline"  color="success"  required></ion-input>
+          </div><br>
+        <div class="row button">
+          <ion-button  type="submit" expand="block" color="success">Ingresar</ion-button>
+        </div>
+      </form>
+  <div class="button_container">
+    <ion-button  expand="block" color="secondary"><img src="assets/img/google.png" height='32' width='32'> Ingresar con Google</ion-button>
+
+  </div>
+</ion-footer>
