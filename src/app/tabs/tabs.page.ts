@@ -9,4 +9,10 @@ export class TabsPage {
 
   constructor() {}
 
+
+  tab1(){}
+  tab2(){}
+  tab3(){}
+
+
 }
