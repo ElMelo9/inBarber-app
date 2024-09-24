@@ -21,14 +21,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'tab1', // Cambia a una ruta relativa
+        redirectTo: 'tab2', // Cambia a una ruta relativa
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'tabs/tab1', // Cambia a una ruta relativa
+    redirectTo: 'tabs/tab2', // Cambia a una ruta relativa
     pathMatch: 'full'
   }
 ];
