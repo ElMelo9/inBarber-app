@@ -5,3 +5,47 @@
 ion-avatar {
     --border-radius: 4px;
   }
+
+  ion-fab-button {
+
+    --border-radius: 15px;
+    --box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --color: black;
+  }
+
+/* Estilos para el tooltip */
+.tooltip {
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 60px; /* Ajusta esta posición si es necesario */
+    left: 20%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Pseudoelemento para la flecha del globo de diálogo */
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* Posiciona la flecha en la parte inferior del tooltip */
+    left: 70%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent; /* Crea el triángulo apuntando hacia abajo */
+  }
+  
+  /* Mostrar el tooltip */
+  .tooltip.show {
+    visibility: visible;
+    opacity: 1;
+  }
