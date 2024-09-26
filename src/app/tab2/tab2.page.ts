@@ -9,8 +9,8 @@ import { OverlayEventDetail } from '@ionic/core/components';
 })
 export class Tab2Page implements OnInit {
   isModalOpenService = false;
-
   isModalOpenProgramar = false;
+  isModalOpenSolicitar = false;
 
   tooltipInterval: any; // Variable para almacenar el intervalo
   tooltipVisible: boolean = true; // Controla la visibilidad del tooltip
@@ -63,6 +63,9 @@ export class Tab2Page implements OnInit {
 
   setOpenProgramar(isOpen: boolean) {
     this.isModalOpenProgramar = isOpen;
+  }
+  setOpenSolicitar(isOpen: boolean) {
+    this.isModalOpenSolicitar = isOpen;
   }
 
   setOpenAlert(isOpen: boolean) {
