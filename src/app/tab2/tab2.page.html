@@ -9,7 +9,7 @@
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <span class="tooltip" id="tooltip">¡Empieza aquí!</span> <!-- Tooltip -->
-    <ion-fab-button id="fab-button" color="success" (click)="setOpenServices(true)" (click)="toggleTooltip()">
+    <ion-fab-button id="fab-button" color="success" (click)="setOpenServices(true)"  (click)="setOpenSolicitar(false)" (click)="toggleTooltip()">
       <img src="assets/img/barber.gif" style="width: 50px; height: 50px;" />
     </ion-fab-button>
   </ion-fab>
@@ -20,7 +20,7 @@
         <ion-toolbar>
           <ion-title color="success">Solicitar servicio</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="setOpenServices(false)" (click)="setOpenAlert(false)">Cerrar</ion-button>
+            <ion-button (click)="setOpenServices(false)" (click)="setOpenSolicitar(false)" (click)="setOpenAlert(false)">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -43,7 +43,7 @@
             El mejor estilo de barba ideal para cada cliente
           </ion-card-content>
 
-          <ion-button shape="round" color="light">
+          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="setOpenServices(false)">
             Solicitar
           </ion-button>
           <ion-button shape="round" color="light" (click)="setOpenProgramar(true)">
@@ -69,7 +69,7 @@
           </ion-card-content>
 
 
-          <ion-button shape="round" color="light">
+          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="setOpenServices(false)">
             Solicitar
           </ion-button>
           <ion-button shape="round" color="light" (click)="setOpenProgramar(true)">
@@ -142,28 +142,30 @@
                 <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
               </ion-avatar>
               <ion-label>
-                <h2>Connor Smith</h2>
+                <h2>El Makia</h2>
                 <p>Barbero</p>
               </ion-label>
+              <ion-badge color="success" slot="end">New!</ion-badge>
             </ion-item>
             <ion-item>
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
               </ion-avatar>
               <ion-label>
-                <h2>Daniel Smith</h2>
+                <h2>El Veneco</h2>
                 <p>Barbero</p>
               </ion-label>
-              
+              <ion-badge color="success" slot="end">+20</ion-badge>
             </ion-item>
             <ion-item>
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
               </ion-avatar>
               <ion-label>
-                <h2>Greg Smith</h2>
+                <h2>La del castillo</h2>
                 <p>Barbero</p>
               </ion-label>
+              <ion-badge color="success" slot="end">+5</ion-badge>
             </ion-item>
             <ion-item>
               <ion-avatar slot="start">
