@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   onLogin(form: LoginI) {

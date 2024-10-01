@@ -14,6 +14,12 @@ export class EstadoServicioService {
 
   constructor(private http: HttpClient) { }
 
+
+  getAll(){
+    const headers = createHeaders()
+    return this.http.get<EstadoServicioResponse[]>(`${this.apiUrl}/getAll`,{ headers })
+  }
+
   insert(estado: EstadoServicioCreate){
     const headers = createHeaders()
     return this.http.post<EstadoServicioResponse>(`${this.apiUrl}/insert`, estado,{ headers })
