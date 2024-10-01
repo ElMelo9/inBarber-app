@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { createHeaders } from 'src/app/helpers/auth-helper';
-import { EstadoServicioCreate, EstadoServicioResponse } from 'src/app/interfaces/estadoServicio.inteface';
+import { EstadoServicioCreate, EstadoServicioResponse, EstadoServicioUpdate } from 'src/app/interfaces/estadoServicio.inteface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class EstadoServicioService {
 
   }
 
-  update(id:number,estado:EstadoServicioResponse) {
+  update(id:number,estado:EstadoServicioUpdate) { 
     const headers = createHeaders()
     return this.http.put<EstadoServicioResponse>(`${this.apiUrl}/update/${id}`,estado,{ headers })
 
