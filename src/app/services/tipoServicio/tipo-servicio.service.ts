@@ -16,25 +16,25 @@ export class TipoServicioService {
   constructor(private http: HttpClient) { }
 
 
-  getAll(){
+  getAll() {
     const headers = createHeaders()
-    return this.http.get<TipoServicioResponse[]>(`${this.apiUrl}/getAll`,{ headers })
+    return this.http.get<TipoServicioResponse[]>(`${this.apiUrl}/getAll`, { headers })
   }
 
-  insert(tipo: TipoServicioCreate){
+  insert(tipo: TipoServicioCreate) {
     const headers = createHeaders()
-    return this.http.post<TipoServicioResponse>(`${this.apiUrl}/insert`, tipo,{ headers })
-
-  }
-
-  update(id:number,tipo:TipoServicioUpdate) { 
-    const headers = createHeaders()
-    return this.http.put<TipoServicioResponse>(`${this.apiUrl}/update/${id}`,tipo,{ headers })
+    return this.http.post<TipoServicioResponse>(`${this.apiUrl}/insert`, tipo, { headers })
 
   }
 
-  delete(id:number){
+  update(id: number, tipo: TipoServicioUpdate) {
     const headers = createHeaders()
-    return this.http.put<boolean>(`${this.apiUrl}/delelte/${id}`,{ headers })
+    return this.http.put<TipoServicioResponse>(`${this.apiUrl}/update/${id}`, tipo, { headers })
+
+  }
+
+  delete(id: number) {
+    const headers = createHeaders()
+    return this.http.put<boolean>(`${this.apiUrl}/delelte/${id}`, { headers })
   }
 }

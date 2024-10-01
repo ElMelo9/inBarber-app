@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { EstadoServicioResponse } from '../interfaces/estadoServicio.inteface';
-import { ServicioResponse } from '../interfaces/servicio.interface';
+import { ServicioCreate, ServicioResponse } from '../interfaces/servicio.interface';
 import { EstadoServicioService } from '../services/estadoServicio/estado-servicio.service';
+import { TipoServicioService } from '../services/tipoServicio/tipo-servicio.service';
+import { TipoServicioResponse } from '../interfaces/tipoServicio.interface';
+import { getFromLocalStorage } from '../helpers/storage-helper';
 
 @Component({
   selector: 'app-tab2',
@@ -23,16 +26,16 @@ export class Tab2Page implements OnInit {
   alertButtons = ['Action'];
 
   estadoServicio:EstadoServicioResponse[] = [];
-  servico:ServicioResponse[] = []; 
+  tipo:TipoServicioResponse[] = [];
 
 
-  constructor(private estadoService:EstadoServicioService) { }
+  constructor(private estadoService:EstadoServicioService, private tipoServicio:TipoServicioService) { }
 
   ngOnInit() {
     // Iniciar el intervalo para mostrar/ocultar el tooltip
     this.startTooltipInterval();
     this.estadoGetAll();
-    //this.tipoServicioGetAll();
+    this.tipoServicioGetAll();
 
   }
 
@@ -45,6 +48,22 @@ export class Tab2Page implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener los estados', error);  // Manejar el error aquí
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  tipoServicioGetAll(){
+    this.tipoServicio.getAll().subscribe({
+      next: (response: TipoServicioResponse[]) => {
+        console.log(response);
+        this.tipo=response
+
+      },
+      error: (error) => {
+        console.error('Error al obtener los tipo de servicios ', error);  // Manejar el error aquí
       },
       complete: () => {
 
@@ -102,5 +121,16 @@ export class Tab2Page implements OnInit {
     this.isAlertOpen = isOpen;
   }
 
+  solicitar(tipoServicio:number){
+    
+    const newServicio: ServicioCreate = {
+      id_usuario: getFromLocalStorage("id_usuario"),
+      id_ubicacion: 1,
+      id_estado_servicio: 0,
+      id_tipo_servicio: tipoServicio,
+      precio_servicio: 10000
+    }
+
+  }
 
 }
