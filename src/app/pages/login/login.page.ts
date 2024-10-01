@@ -55,6 +55,9 @@ export class LoginPage implements OnInit {
    console.log(tokenPayload)
     saveToLocalStorage("exp", tokenPayload.exp)
     saveToLocalStorage("nombre_usuario", tokenPayload.Nombre_usuario)
+    saveToLocalStorage("id_usuario", tokenPayload.id_usuario)
+    saveToLocalStorage("rol", tokenPayload.rol)
+    saveToLocalStorage("email", tokenPayload.email)
 
   }
 
