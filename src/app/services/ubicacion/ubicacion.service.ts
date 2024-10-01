@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { createHeaders } from 'src/app/helpers/auth-helper';
 import { environment } from 'src/environments/environment';
-import { UbicacionCreate, UbicacionResponse, UbicacionUpdate } from '../interfaces/ubicacio.interface';
+import { UbicacionCreate, UbicacionResponse, UbicacionUpdate } from '../../interfaces/ubicacio.interface';
 
 @Injectable({
   providedIn: 'root'
