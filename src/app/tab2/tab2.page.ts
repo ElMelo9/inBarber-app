@@ -7,6 +7,9 @@ import { EstadoServicioService } from '../services/estadoServicio/estado-servici
 import { TipoServicioService } from '../services/tipoServicio/tipo-servicio.service';
 import { TipoServicioResponse } from '../interfaces/tipoServicio.interface';
 import { getFromLocalStorage } from '../helpers/storage-helper';
+import { ServicioService } from '../services/servicio/servicio.service';
+import { UbicacionService } from '../services/ubicacion/ubicacion.service';
+import { UbicacionResponse } from '../interfaces/ubicacio.interface';
 
 @Component({
   selector: 'app-tab2',
@@ -18,18 +21,25 @@ export class Tab2Page implements OnInit {
   isModalOpenService = false;
   isModalOpenProgramar = false;
   isModalOpenSolicitar = false;
-  precio_servicio: number | null = null;
+  precio_servicio!: number
   tooltipInterval: any; // Variable para almacenar el intervalo
   tooltipVisible: boolean = true; // Controla la visibilidad del tooltip
   tooltipActive: boolean = true; // Estado de ejecución del intervalo
   isAlertOpen = false;
   alertButtons = ['Action'];
 
-  estadoServicio:EstadoServicioResponse[] = [];
-  tipo:TipoServicioResponse[] = [];
+  estadoServicio: EstadoServicioResponse[] = [];
+  tipo: TipoServicioResponse[] = [];
+  nuevoServicio!: ServicioCreate;
+  ubicacionActual!: UbicacionResponse
 
 
-  constructor(private estadoService:EstadoServicioService, private tipoServicio:TipoServicioService) { }
+  constructor(
+    private estadoService: EstadoServicioService,
+    private tipoServicio: TipoServicioService,
+    private servicio: ServicioService,
+    private ubicacionService: UbicacionService
+  ) { }
 
   ngOnInit() {
     // Iniciar el intervalo para mostrar/ocultar el tooltip
@@ -39,11 +49,11 @@ export class Tab2Page implements OnInit {
 
   }
 
-  estadoGetAll(){
+  estadoGetAll() {
     this.estadoService.getAll().subscribe({
       next: (response: EstadoServicioResponse[]) => {
         console.log(response);
-        this.estadoServicio=response
+        this.estadoServicio = response
 
       },
       error: (error) => {
@@ -55,11 +65,12 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  tipoServicioGetAll(){
+  tipoServicioGetAll() {
+
     this.tipoServicio.getAll().subscribe({
       next: (response: TipoServicioResponse[]) => {
         console.log(response);
-        this.tipo=response
+        this.tipo = response
 
       },
       error: (error) => {
@@ -121,15 +132,55 @@ export class Tab2Page implements OnInit {
     this.isAlertOpen = isOpen;
   }
 
-  solicitar(tipoServicio:number){
+  preSolicitar(tipoServicio: number) {
+
+    this.getUltimaUbicacion(getFromLocalStorage("id_usuario"))
     
-    const newServicio: ServicioCreate = {
+    this.nuevoServicio = {
       id_usuario: getFromLocalStorage("id_usuario"),
-      id_ubicacion: 1,
-      id_estado_servicio: 0,
+      id_ubicacion: 0,
+      id_estado_servicio: 1,
       id_tipo_servicio: tipoServicio,
-      precio_servicio: 10000
+      precio_servicio: 0
     }
+
+
+
+
+  }
+
+  solicitar() {
+
+    this.nuevoServicio.precio_servicio = this.precio_servicio
+    this.nuevoServicio.id_ubicacion= this.ubicacionActual.id_ubicacion,
+
+    this.servicio.insert(this.nuevoServicio).subscribe({
+      next: (response: ServicioResponse) => {
+        console.log(response);
+
+      },
+      error: (error) => {
+        console.error('Error al insertar el servicio', error);  // Manejar el error aquí
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  getUltimaUbicacion(id_usuario: number) {
+    this.ubicacionService.getByUser(id_usuario).subscribe({
+      next: (response: UbicacionResponse) => {
+        console.log(response);
+        this.ubicacionActual = response
+
+      },
+      error: (error) => {
+        console.error('Error al obtener la ultima ubicacion', error);  // Manejar el error aquí
+      },
+      complete: () => {
+      }
+    });
 
   }
 

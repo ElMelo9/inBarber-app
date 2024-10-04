@@ -24,6 +24,11 @@ export class UbicacionService {
     return this.http.get<UbicacionResponse>(`${this.apiUrl}/getById/${id}`,{ headers })
   }
 
+  getByUser(id:number){
+    const headers = createHeaders()
+    return this.http.get<UbicacionResponse>(`${this.apiUrl}/getByUser/${id}`,{ headers })
+  }
+
   update(id:number,ubicacion:UbicacionUpdate){
     const headers = createHeaders()
     return this.http.get<UbicacionResponse>(`${this.apiUrl}/update/${id}`,{ headers })

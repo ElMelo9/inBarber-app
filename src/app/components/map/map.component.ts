@@ -1,5 +1,8 @@
 import { Component, ElementRef, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation'; // Solo si usas Capacitor
+import { getFromLocalStorage } from 'src/app/helpers/storage-helper';
+import { UbicacionCreate, UbicacionResponse } from 'src/app/interfaces/ubicacio.interface';
+import { UbicacionService } from 'src/app/services/ubicacion/ubicacion.service';
 
 declare var google: any;
 
@@ -17,14 +20,15 @@ export class MapComponent implements OnInit {
   marker: any;
   private renderer = inject(Renderer2);
 
-  constructor() { }
+  ubicacion!: UbicacionCreate
 
-  ngAfterViewInit() {
-    this.loadMap();
-  }
+
+
+  constructor(private ubicacionService: UbicacionService) { }
 
   ngOnInit() {
     this.locateMe()
+    this.loadMap();
    }
 
   async loadMap() {
@@ -80,6 +84,23 @@ export class MapComponent implements OnInit {
 
     if (this.marker) {
       this.marker.position = newLocation;
+      this.ubicacion={
+        id_usuario: getFromLocalStorage("id_usuario"),
+        longitud_ubicacion: location.lat.toString(),
+        latitud_ubicacion: location.lng.toString()
+      }
+      console.log(this.ubicacion);
+      this.ubicacionService.insert(this.ubicacion).subscribe({
+        next: (response: UbicacionResponse) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error('Error al insertar el servicio', error);  // Manejar el error aquí
+        },
+        complete: () => {
+  
+        }
+      });
     } else {
       this.addMarker(newLocation);
     }
