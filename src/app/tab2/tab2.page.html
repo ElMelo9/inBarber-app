@@ -27,7 +27,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <!-- card -->
+        <!-- card  Corte de Barba-->
         <ion-card color="success">
           <ion-grid>
             <ion-row>
@@ -45,14 +45,14 @@
             El mejor estilo de barba ideal para cada cliente
           </ion-card-content>
 
-          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="preSolicitar(1)" (click)="setOpenServices(false)">
+          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="preSolicitar(3)" (click)="setOpenServices(false)">
             Solicitar
           </ion-button>
           <ion-button shape="round" color="light" (click)="setOpenProgramar(true)">
             Programar
           </ion-button>
         </ion-card>
-        <!-- card -->
+        <!-- card Corte de cabello-->
         <ion-card color="success">
           <ion-grid>
             <ion-row>
@@ -71,14 +71,14 @@
           </ion-card-content>
 
 
-          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="preSolicitar(2)" (click)="setOpenServices(false)">
+          <ion-button shape="round" color="light" (click)="setOpenSolicitar(true)" (click)="preSolicitar(4)" (click)="setOpenServices(false)">
             Solicitar
           </ion-button>
           <ion-button shape="round" color="light" (click)="setOpenProgramar(true)">
             Programar
           </ion-button>
         </ion-card>
-        <!-- card -->
+        <!-- card Combo Personal-->
         <ion-card color="success">
           <ion-grid>
             <ion-row>
@@ -97,7 +97,7 @@
           </ion-card-content>
 
 
-          <ion-button (click)="setOpenSolicitar(true)" (click)="preSolicitar(3)" (click)="setOpenServices(false)" shape="round" color="light">
+          <ion-button (click)="setOpenSolicitar(true)" (click)="preSolicitar(5)" (click)="setOpenServices(false)" shape="round" color="light">
             Solicitar
           </ion-button>
           <ion-button shape="round" color="light" (click)="setOpenProgramar(true)">
@@ -141,7 +141,7 @@
           placeholder="Sugerido: $15.000 COP">
         </ion-input>
 
-        <ion-button [disabled]="!precio_servicio" color="success" shape="round" expand="block" (click)="solicitar()">
+        <ion-button [disabled]="!precio_servicio" color="success" shape="round" expand="block" (click)="solicitar()" (click)="setOpenSolicitar(false)">
           <ion-icon style="width: 32px; height: 32px;" name="search-circle-outline">
           </ion-icon>
           Solicitar ahora

@@ -10,6 +10,7 @@ import { getFromLocalStorage } from '../helpers/storage-helper';
 import { ServicioService } from '../services/servicio/servicio.service';
 import { UbicacionService } from '../services/ubicacion/ubicacion.service';
 import { UbicacionResponse } from '../interfaces/ubicacio.interface';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -32,13 +33,15 @@ export class Tab2Page implements OnInit {
   tipo: TipoServicioResponse[] = [];
   nuevoServicio!: ServicioCreate;
   ubicacionActual!: UbicacionResponse
+  progress = 0;
 
 
   constructor(
     private estadoService: EstadoServicioService,
     private tipoServicio: TipoServicioService,
     private servicio: ServicioService,
-    private ubicacionService: UbicacionService
+    private ubicacionService: UbicacionService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -135,7 +138,7 @@ export class Tab2Page implements OnInit {
   preSolicitar(tipoServicio: number) {
 
     this.getUltimaUbicacion(getFromLocalStorage("id_usuario"))
-    
+
     this.nuevoServicio = {
       id_usuario: getFromLocalStorage("id_usuario"),
       id_ubicacion: 0,
@@ -149,23 +152,49 @@ export class Tab2Page implements OnInit {
 
   }
 
-  solicitar() {
+  async solicitar() {
 
     this.nuevoServicio.precio_servicio = this.precio_servicio
-    this.nuevoServicio.id_ubicacion= this.ubicacionActual.id_ubicacion,
+    this.nuevoServicio.id_ubicacion = this.ubicacionActual.id_ubicacion,
 
-    this.servicio.insert(this.nuevoServicio).subscribe({
-      next: (response: ServicioResponse) => {
-        console.log(response);
+      this.servicio.insert(this.nuevoServicio).subscribe({
+        next: (response: ServicioResponse) => {
+          console.log(response);
 
-      },
-      error: (error) => {
-        console.error('Error al insertar el servicio', error);  // Manejar el error aquí
-      },
-      complete: () => {
+        },
+        error: (error) => {
+          console.error('Error al insertar el servicio', error);  // Manejar el error aquí
+        },
+        complete: () => {
 
-      }
+        }
+      });
+
+    const alert = await this.alertController.create({
+      header: 'Solicitando servicio....',
+      message: '', // Se deja vacío ya que se usa innerHTML para insertar el HTML dinámico.
+      buttons: ['Cerrar'],
+      cssClass: 'custom-alert' // Para estilos personalizados, si deseas.
     });
+
+    await alert.present();
+
+    // Inserta el contenido HTML directamente en el elemento del mensaje
+    const messageElement = document.querySelector('.alert-message');
+    if (messageElement) {
+      messageElement.innerHTML = `
+        <ion-item lines="none">
+          <ion-label>Buscando un barbero..</ion-label>
+                    <ion-spinner name="circles" color="success"></ion-spinner>
+          <img src="assets/img/SolBarbero.gif" style="width: 100px; height: 100px;" />
+        </ion-item>`;
+    }
+
+    // Espera 5 segundos y luego cierra el alert
+setTimeout(() => {
+  alert.dismiss();
+}, 5000);
+
   }
 
   getUltimaUbicacion(id_usuario: number) {
