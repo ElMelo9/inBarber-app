@@ -5,23 +5,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<div *ngFor="let service of servicios"  >
   <ion-card>
     <!-- Encabezado de la tarjeta -->
     <ion-header>
       <ion-toolbar class="card-header-toolbar">
         <div class="header-content">
           <div class="header-title">
-            <ion-title>$8000 - Combo personal</ion-title>
+            <ion-title>{{ getNombreServicio(service.id_tipo_servicio) }} - ${{ service.precio_servicio }}</ion-title>
           </div>
           <div class="header-date">
             <ion-icon name="calendar-outline"></ion-icon>
-            <ion-text class="date-text">05-11-2024</ion-text>
+            <ion-text class="date-text">{{ service.fecha_rg | date:'yyyy-MM-dd' }}</ion-text>
           </div>
         </div>
       </ion-toolbar>
@@ -71,10 +66,6 @@
       </ion-button>
     </div>
   </ion-card>
-  
-  
-  
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+</div>
 </ion-content>
 
