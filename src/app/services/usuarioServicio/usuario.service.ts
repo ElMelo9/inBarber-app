@@ -7,7 +7,7 @@ import { createHeaders } from 'src/app/helpers/auth-helper';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioServicioService {
+export class UsuarioService {
 
   private apiUrl = environment.apiUrl + 'usuarios';
 
