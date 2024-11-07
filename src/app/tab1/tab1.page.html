@@ -5,67 +5,75 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<div *ngFor="let service of servicios"  >
-  <ion-card>
-    <!-- Encabezado de la tarjeta -->
-    <ion-header>
-      <ion-toolbar class="card-header-toolbar">
-        <div class="header-content">
-          <div class="header-title">
-            <ion-title>{{ getNombreServicio(service.id_tipo_servicio) }} - ${{ service.precio_servicio }}</ion-title>
+  <div *ngFor="let service of servicios">
+    <ion-card>
+      <!-- Encabezado de la tarjeta -->
+      <ion-header>
+        <ion-toolbar class="card-header-toolbar">
+          <div class="header-content">
+            <div class="header-title">
+              <ion-title>{{ getNombreServicio(service.id_tipo_servicio) }} - ${{ service.precio_servicio }}</ion-title>
+            </div>
+            <div class="header-date">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <ion-text class="date-text">{{ service.fecha_rg | date:'yyyy-MM-dd' }}</ion-text>
+            </div>
           </div>
-          <div class="header-date">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <ion-text class="date-text">{{ service.fecha_rg | date:'yyyy-MM-dd' }}</ion-text>
-          </div>
-        </div>
-      </ion-toolbar>
-    </ion-header>
-  
-    <ion-card-content>
-      <!-- Contenido del timeline -->
-      <div class="timeline">
-        <!-- Paso 1: Abierto -->
-        <div class="step">
-          <span class="step-label">Abierto</span>
-          <div class="circle active">
-            <img src="assets/img/abierto.gif" alt="Abierto" class="step-icon" />
-          </div>
-        </div>
-        <!-- Paso 2: Asignado -->
-        <div class="step">
-          <span class="step-label">Asignado</span>
-          <div class="circle active">
-            <img src="assets/img/barbero.gif" alt="Asignado" class="step-icon" />
-          </div>
-        </div>
-        <!-- Paso 3: Cerrado -->
-        <div class="step">
-          <span class="step-label">Cerrado</span>
-          <div class="circle">
-            <img src="assets/img/realizado.gif" alt="Cerrado" class="step-icon" />
-          </div>
-        </div>
-      </div>
-  
-      <!-- Barra de progreso -->
-      <ion-progress-bar class="progress-bar" value="0.50" buffer="0.75" color="success"></ion-progress-bar>
-    </ion-card-content>
-  
-    <!-- Contenedor del botón y rating -->
-    <div class="footer-container">
-      <div class="rating">
-        <ion-icon name="star" class="star filled"></ion-icon>
-        <ion-icon name="star" class="star filled"></ion-icon>
-        <ion-icon name="star" class="star filled"></ion-icon>
-        <ion-icon name="star-outline" class="star"></ion-icon>
-        <ion-icon name="star-outline" class="star"></ion-icon>
-      </div>
-      <ion-button color="danger">
-        <ion-text color="light">Eliminar</ion-text>
-      </ion-button>
-    </div>
-  </ion-card>
-</div>
-</ion-content>
+        </ion-toolbar>
+      </ion-header>
 
+      <ion-card-content>
+        <!-- Contenido del timeline -->
+        <div class="timeline">
+          <!-- Paso 1: Abierto -->
+          <div class="step">
+            <span class="step-label">Abierto</span>
+            <div class="circle" [class.active]="service.id_estado_servicio >= 1">
+              <img src="assets/img/abierto.gif" alt="Abierto" class="step-icon" />
+            </div>
+          </div>
+          <!-- Paso 2: Asignado -->
+          <div class="step">
+            <span class="step-label">Asignado</span>
+            <div class="circle" [class.active]="service.id_estado_servicio >= 2">
+              <img src="assets/img/barbero.gif" alt="Asignado" class="step-icon" />
+            </div>
+          </div>
+          <!-- Paso 3: Cerrado -->
+          <div class="step">
+            <span class="step-label">Cerrado</span>
+            <div class="circle" [class.active]="service.id_estado_servicio >= 3">
+              <img src="assets/img/realizado.gif" alt="Cerrado" class="step-icon" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de progreso -->
+        <ion-progress-bar class="progress-bar" [value]="getProgressValue(service.id_estado_servicio)"
+          [buffer]="getProgressBuffer(service.id_estado_servicio)" color="success">
+        </ion-progress-bar>
+      </ion-card-content>
+
+      <!-- Contenedor del botón y rating (visible solo si el estado es 3) -->
+      <div class="footer-container">
+        <div class="rating">
+          <div *ngIf="service.id_estado_servicio === 3">
+            <ion-icon name="star" class="star filled"></ion-icon>
+            <ion-icon name="star" class="star filled"></ion-icon>
+            <ion-icon name="star" class="star filled"></ion-icon>
+            <ion-icon name="star-outline" class="star"></ion-icon>
+            <ion-icon name="star-outline" class="star"></ion-icon>
+          </div>
+        </div>
+        <ion-button color="danger">
+          <ion-text color="light" (click)="eliminarServicio(service.id_servicio)">Eliminar</ion-text>
+        </ion-button>
+      </div>
+    </ion-card>
+  </div>
+  <div *ngIf="!servicios || servicios.length === 0" class="empty-services">
+    <h2>Aún no has solicitado ningún servicio</h2>
+    <img src="assets/img/barberia.gif" alt="Sin servicios" />
+    <p>Pide tu primer servicio y disfruta de nuestros beneficios exclusivos.</p>
+  </div>
+</ion-content>

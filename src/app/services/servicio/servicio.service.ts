@@ -34,7 +34,7 @@ export class ServicioService {
 
   delete(id:number){
     const headers = createHeaders()
-    return this.http.put<boolean>(`${this.apiUrl}/delelte/${id}`,{ headers })
+    return this.http.delete<boolean>(`${this.apiUrl}/delete/${id}`,{ headers })
   }
 
 }
