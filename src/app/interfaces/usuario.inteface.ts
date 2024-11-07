@@ -16,7 +16,7 @@ export interface usuarioResponse{
     fecha_md: Date
 }
 
-export interface UsuarioUpdate{
+export interface usuarioUpdate{
 
     id_rol: number
     id_barrio: number
